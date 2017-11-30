@@ -14,6 +14,12 @@ export function getCalendarDays(date) {
     return arr
   }
 
+  // this happens when 1st of February falls on a Sunday
+  if (arr.length === 28) {
+    return Array.from(moment.range(
+      start.subtract(7, 'days'), end.add(7, 'days')).by('day'));
+  }
+
   return Array.from(moment.range(start, end.add(7, 'days')).by('day'));
 }
 

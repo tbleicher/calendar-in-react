@@ -8,3 +8,8 @@ test('getCalendarDays returns 42 days', () => {
 test('getCalendarWeeks returns 6 weeks', () => {
   expect( getCalendarWeeks( moment() ).length ).toBe(6);
 });
+
+test('getCalendarDays adds a whole week', () => {
+  expect( moment("2009-02-01").day() ).toBe(0)
+  expect( getCalendarDays( moment("2009-02-01") ).length ).toBe(42);
+});
