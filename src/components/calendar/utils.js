@@ -1,14 +1,30 @@
+/* import moment from 'moment-holiday'; */
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+ 
+const moment = extendMoment(Moment);
 
 
 export function getCalendarDays(date) {
-  const calendarDays = [
-    [28,29,30,31, 1, 2, 3],
-    [ 4, 5, 6, 7, 8, 9,10],
-    [11,12,13,14,15,16,17],
-    [18,19,20,21,22,23,24],
-    [25,26,27,28,29,30,31],
-    [ 1, 2, 3, 4, 5, 6, 7]
-  ];
+  const start = moment(date).startOf('month').startOf('week');
+  let end = moment(date).endOf('month').endOf('week');
+  let arr = Array.from(moment.range(start, end).by('day'));
+
+  if (arr.length === 42) {
+    return arr
+  }
+
+  return Array.from(moment.range(start, end.add(7, 'days')).by('day'));
+}
+
+
+export function getCalendarWeeks(date=moment()) {
+  const days = getCalendarDays(date); 
+  const weeks = [];
   
-  return calendarDays;
+  while (days.length) {
+    weeks.push(days.splice(0,7));
+  }
+
+  return weeks;
 }

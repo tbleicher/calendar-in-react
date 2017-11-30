@@ -1,30 +1,27 @@
 import React from 'react';
 
+import SelectHeader from './selectheader';
 import MonthPanel from './monthpanel';
-import { getCalendarDays } from './utils';
+import { getCalendarWeeks } from './utils';
 
 import './calendar.css';
-
-function renderWeek(week) {
-  const days = week.map(day => <div>{day}</div>)
-  return (
-    <div className="week">{days}</div>
-  )
-}
 
 
 export default class Calendar extends React.Component {
   
   render() {
 
-    const weeks = getCalendarDays();
+    const weeks = getCalendarWeeks();
 
     return (
-      <div>
-        <div>
-          <h2>Year - Month</h2>
-        </div>
-        <MonthPanel weeks={weeks} /> 
+      <div className="calendar">
+        <SelectHeader
+          year={2017} 
+          month={11}
+        />
+        <MonthPanel
+          weeks={weeks}
+        /> 
       </div>
     )
   }
