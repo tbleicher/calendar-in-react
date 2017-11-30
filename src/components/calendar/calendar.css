@@ -1,0 +1,8 @@
+.week {
+  max-width: 240px;
+}
+
+.week > div {
+  min-width: 30px;
+  display: inline-block;
+}
