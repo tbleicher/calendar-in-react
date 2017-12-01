@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import SelectHeader from './selectheader';
 import MonthPanel from './monthpanel';
@@ -6,23 +8,47 @@ import { getCalendarWeeks } from './utils';
 
 import './calendar.css';
 
+class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default class Calendar extends React.Component {
-  
+    this.state = {
+      selectedDate: this.props.date
+    };
+
+    this.onDateChange = this.onDateChange.bind(this);
+  }
+
+  onDateChange(newDate) {
+    this.setState({ selectedDate: newDate }, this.props.onDateChange(newDate));
+  }
+
   render() {
-
-    const weeks = getCalendarWeeks();
+    const month = this.state.selectedDate.month() // month range is 0-11
+    const year = this.state.selectedDate.year()
+    const weeks = getCalendarWeeks(this.state.selectedDate);
 
     return (
       <div className="calendar">
         <SelectHeader
-          year={2017} 
-          month={11}
+          year={year}
+          month={month}
+          onDateChange={this.onDateChange}
         />
-        <MonthPanel
-          weeks={weeks}
-        /> 
+        <MonthPanel weeks={weeks} selectedDate={this.state.selectedDate} />
       </div>
-    )
+    );
   }
 }
+
+Calendar.defaultProps = {
+  date: moment(),
+  onDateChange: d => console.log(`selected date: ${d.format('LL')}`)
+};
+
+Calendar.propTypes = {
+  date: PropTypes.object,
+  onDateChange: PropTypes.func
+};
+
+export default Calendar;

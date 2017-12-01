@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+
 import Select from 'react-select';
 
 import 'react-select/dist/react-select.css';
 
-export default class SelectHeader extends React.Component {
+class SelectHeader extends React.Component {
   
   constructor(props) {
     super(props)
@@ -13,18 +16,33 @@ export default class SelectHeader extends React.Component {
       month: props.month,
     };
 
+    this.handleDateChange = this.handleDateChange.bind(this); 
     this.handleMonthChange = this.handleMonthChange.bind(this);
-    this.handleYearChange = this.handleYearChange.bind(this); 
+    this.handleYearChange = this.handleYearChange.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({ 
+      month: newProps.month,
+      year: newProps.year
+     });
+  }
+
+  handleDateChange(newYear, newMonth) {
+    const month = newMonth || this.state.month;
+    const year = newYear || this.state.year;
+    const date = moment({ year, month, day: 15 })
+
+    this.setState({ month, year }, this.props.onDateChange(date));
   }
 
   handleMonthChange(selectedOption) {
-    console.log(`Selected: ${selectedOption.label}`);
+    this.handleDateChange(null, selectedOption.value);
   }
 
   handleYearChange(selectedOption) {
-    console.log(`Selected: ${selectedOption.label}`);
+    this.handleDateChange(selectedOption.value);
   }
-
 
   render() {
 
@@ -33,7 +51,7 @@ export default class SelectHeader extends React.Component {
         <Select
           name="year-selector"
           value={this.state.year}
-          onChange={this.handleChange}
+          onChange={this.handleYearChange}
           options={[
             { value: 2014, label: '2014' },
             { value: 2015, label: '2015' },
@@ -48,20 +66,20 @@ export default class SelectHeader extends React.Component {
         <Select
           name="month-selector"
           value={this.state.month}
-          onChange={this.handleChange}
+          onChange={this.handleMonthChange}
           options={[
-            { value:  1, label: 'January' },
-            { value:  2, label: 'February' },
-            { value:  3, label: 'March' },
-            { value:  4, label: 'April' },
-            { value:  5, label: 'May' },
-            { value:  6, label: 'June' },
-            { value:  7, label: 'July' },
-            { value:  8, label: 'August' },
-            { value:  9, label: 'September' },
-            { value: 10, label: 'October' },
-            { value: 11, label: 'November' },
-            { value: 12, label: 'December' },
+            { value:  0, label: 'January' },
+            { value:  1, label: 'February' },
+            { value:  2, label: 'March' },
+            { value:  3, label: 'April' },
+            { value:  4, label: 'May' },
+            { value:  5, label: 'June' },
+            { value:  6, label: 'July' },
+            { value:  7, label: 'August' },
+            { value:  8, label: 'September' },
+            { value:  9, label: 'October' },
+            { value: 10, label: 'November' },
+            { value: 11, label: 'December' },
           ]}
           clearable={false}
         />
@@ -69,3 +87,11 @@ export default class SelectHeader extends React.Component {
     )
   }
 }
+
+SelectHeader.propTypes = {
+  month: PropTypes.number.isRequired,
+  year: PropTypes.number.isRequired,
+  onDateChange: PropTypes.func.isRequired,
+}
+
+export default SelectHeader;
