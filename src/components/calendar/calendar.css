@@ -33,13 +33,6 @@ div.Select:nth-child(3) {
   padding-left: 0px;
 }
 
-.arrowimg {
-  fill: #888;
-  stroke: #888;
-  color: #888;
-  margin-top: 12px;
-}
-
 .month {
   margin: 5px;
   /* outline: 1px solid red; */
