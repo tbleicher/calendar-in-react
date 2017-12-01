@@ -5,7 +5,7 @@ import moment from 'moment';
 function renderDay(day, selected) {
   const classNames = [];
 
-  if (day.format('M-D') === moment().format('M-D')) {
+  if (day.format('M-D-Y') === moment().format('M-D-Y')) {
     classNames.push('today');
   }
   if (day.day() === 0) {
