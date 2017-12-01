@@ -12,6 +12,13 @@
   background: #eee;
 }
 
+.header > svg {
+  width: 24px;
+  height: 24px;
+  margin-top: 12px;
+  fill: #bbb;
+}
+
 div.Select {
   display: inline-block;
   flex-grow: 1;
