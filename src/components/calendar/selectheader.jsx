@@ -46,8 +46,6 @@ class SelectHeader extends React.Component {
 
     this.state = {
       selectedDate: props.selectedDate,
-      year: props.year,
-      month: props.month,
     };
 
     this.handleDateChange = this.handleDateChange.bind(this); 
@@ -59,8 +57,6 @@ class SelectHeader extends React.Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       selectedDate: newProps.selectedDate, 
-      month: newProps.month,
-      year: newProps.year
      });
   }
 
@@ -69,7 +65,7 @@ class SelectHeader extends React.Component {
     const year = newYear || this.state.selectedDate.year();
     const selectedDate = moment({ year, month, day: this.state.selectedDate.day() })
 
-    this.setState({ month, year, selectedDate }, this.props.onDateChange(selectedDate));
+    this.setState({ selectedDate }, this.props.onDateChange(selectedDate));
   }
 
   handleMonthChange(selectedOption) {
@@ -80,7 +76,7 @@ class SelectHeader extends React.Component {
     this.handleDateChange(selectedOption.value);
   }
 
-  incrementMonth(step=1) {
+  incrementMonth(step) {
     let selectedDate = moment(this.state.selectedDate);
     
     if (step > 0) {
@@ -124,9 +120,8 @@ class SelectHeader extends React.Component {
 }
 
 SelectHeader.propTypes = {
-  month: PropTypes.number.isRequired,
-  year: PropTypes.number.isRequired,
   onDateChange: PropTypes.func.isRequired,
+  selectedDate: PropTypes.object,
 }
 
 export default SelectHeader;
