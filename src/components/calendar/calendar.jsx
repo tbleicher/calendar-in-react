@@ -11,9 +11,19 @@ import './calendar.css';
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
+    
+    const year = (props.match.params.year)
+      ? parseInt(props.match.params.year, 10)
+      : this.props.date.year();
+
+    const month = (props.match.params.month)
+      ? parseInt(props.match.params.month, 10) - 1
+      : this.props.date.month();
+
+    const day = this.props.date.day();
 
     this.state = {
-      selectedDate: this.props.date
+      selectedDate: moment({ year, month, day })
     };
 
     this.onDateChange = this.onDateChange.bind(this);
@@ -49,6 +59,7 @@ Calendar.defaultProps = {
 
 Calendar.propTypes = {
   date: PropTypes.object,
+  match: PropTypes.object,
   onDateChange: PropTypes.func
 };
 
