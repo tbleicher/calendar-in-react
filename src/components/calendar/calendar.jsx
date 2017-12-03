@@ -30,7 +30,11 @@ class Calendar extends React.Component {
   }
 
   onDateChange(newDate) {
-    this.setState({ selectedDate: newDate }, this.props.onDateChange(newDate));
+    const location = '/calendar/' + newDate.format('YYYY/M')
+    
+    this.setState({ selectedDate: newDate }, 
+      this.props.history.push(location)
+    );
   }
 
   render() {
@@ -54,13 +58,13 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   date: moment(),
-  onDateChange: d => console.log(`selected date: ${d.format('LL')}`)
+  //onDateChange: d => console.log(`selected date: ${d.format('LL')}`)
 };
 
 Calendar.propTypes = {
   date: PropTypes.object,
   match: PropTypes.object,
-  onDateChange: PropTypes.func
+  //onDateChange: PropTypes.func
 };
 
 export default Calendar;
