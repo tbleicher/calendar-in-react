@@ -25,6 +25,19 @@ class Calendar extends React.Component {
     );
   }
 
+  // skip update of calendar if the same day is selected
+  shouldComponentUpdate(nextProps, nextState) {
+    if ( nextProps.date.format('LL') !== this.state.selectedDate.format('LL')) {
+      return true;
+    }
+
+    if ( nextState.selectedDate.format('LL') !== this.state.selectedDate.format('LL')) {
+      return true;
+    }
+    
+    return false;
+  }
+
   render() {
     const month = this.state.selectedDate.month() // month range is 0-11
     const year = this.state.selectedDate.year()
