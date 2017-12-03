@@ -11,36 +11,18 @@ import './calendar.css';
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
-    
-    const year = (props.match.params.year)
-      ? parseInt(props.match.params.year, 10)
-      : this.props.date.year();
-
-    const month = (props.match.params.month)
-      ? parseInt(props.match.params.month, 10) - 1
-      : this.props.date.month();
-
-    const day = this.props.date.day();
 
     this.state = {
-      selectedDate: moment({ year, month, day })
+      selectedDate: moment(this.props.date)
     };
 
     this.onDateChange = this.onDateChange.bind(this);
-    this.setStateCallback = this.setStateCallback.bind(this); 
   }
 
   onDateChange(newDate) {
     this.setState({ selectedDate: newDate }, 
-      this.setStateCallback(newDate)
+      this.props.onDateChange(newDate)
     );
-  }
-
-  setStateCallback(newDate) {
-    const location = '/calendar/' + newDate.format('YYYY/M')
-
-    this.props.history.push(location);
-    this.props.onDateChange(newDate);
   }
 
   render() {
@@ -69,7 +51,6 @@ Calendar.defaultProps = {
 
 Calendar.propTypes = {
   date: PropTypes.object,
-  match: PropTypes.object,
   onDateChange: PropTypes.func,
 };
 

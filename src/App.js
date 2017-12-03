@@ -5,14 +5,25 @@ import {
 } from 'react-router-dom';
 
 import logo from './logo.svg';
-import Calendar from './components/calendar';
+import { RouteCalendar as Calendar } from './components/calendar';
 
 import './App.css';
 
+
+// This function provides a way to communicate date selections
+// made in the calendar to higher level components where it can
+// be commited to a store or central app state
 function onDateChange(newDate) {
   console.log(`selected date: ${newDate.format('LL')}`);
 }
 
+
+// This is the main App component that displays a header and
+// a route-dependent component (here only the Calendar)
+//
+// I have to specify the route with a leading '/calendar/'
+// because the app will be deployed in a subdirectory on
+// a shared domain ('http://my.domain.com/calendar').
 class App extends Component {
   
   render() {
