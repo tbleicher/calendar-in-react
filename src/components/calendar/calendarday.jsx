@@ -9,10 +9,17 @@ class CalendarDay extends React.Component {
     if (this.props.date.format('M-D-Y') === moment().format('M-D-Y')) {
       classNames.push('today');
     }
+
+    if (this.props.date.format('M-D-Y') === this.props.selected.format('M-D-Y')) {
+      console.log(`selected: ${this.props.selected.format('LL')}`)
+      classNames.push('selected');
+    }
+
     if (this.props.date.day() === 0) {
       classNames.push('holiday');
     }
-    if (this.props.date.format('M') !== moment(this.props.selected).format('M')) {
+
+    if (this.props.date.format('M') !== this.props.selected.format('M')) {
       classNames.push('fade');
     }
 
