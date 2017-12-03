@@ -38,9 +38,6 @@ div.Select:nth-child(3) {
   /* outline: 1px solid red; */
 
 }
-.week {
-  /* max-width: 240px; */
- }
 
 .week > div {
   display: inline-block;
