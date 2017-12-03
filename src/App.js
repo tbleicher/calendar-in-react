@@ -9,9 +9,15 @@ import Calendar from './components/calendar';
 
 import './App.css';
 
+function onDateChange(newDate) {
+  console.log(`selected date: ${newDate.format('LL')}`);
+}
 
 class App extends Component {
+  
   render() {
+    const calendarProps = { onDateChange };
+
     return (
       <Router>
         <div className="App">
@@ -19,7 +25,14 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Calendar in React</h1>
           </header>
-          <Route path="/calendar/:year?/:month?" component={Calendar}/>
+          {/* this explicit declaration of Route allows us to define
+              properties for the component rendered in the Route */ }
+          <Route
+            path="/calendar/:year?/:month?" 
+            render={(routeProps) => (
+              <Calendar {...routeProps} { ...calendarProps } />
+            )}
+          />
         </div>
       </Router>
     );
