@@ -27,14 +27,20 @@ class Calendar extends React.Component {
     };
 
     this.onDateChange = this.onDateChange.bind(this);
+    this.setStateCallback = this.setStateCallback.bind(this); 
   }
 
   onDateChange(newDate) {
-    const location = '/calendar/' + newDate.format('YYYY/M')
-    
     this.setState({ selectedDate: newDate }, 
-      this.props.history.push(location)
+      this.setStateCallback(newDate)
     );
+  }
+
+  setStateCallback(newDate) {
+    const location = '/calendar/' + newDate.format('YYYY/M')
+
+    this.props.history.push(location);
+    this.props.onDateChange(newDate);
   }
 
   render() {
@@ -58,13 +64,13 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   date: moment(),
-  //onDateChange: d => console.log(`selected date: ${d.format('LL')}`)
+  onDateChange: d => {},
 };
 
 Calendar.propTypes = {
   date: PropTypes.object,
   match: PropTypes.object,
-  //onDateChange: PropTypes.func
+  onDateChange: PropTypes.func,
 };
 
 export default Calendar;
