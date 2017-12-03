@@ -38,7 +38,11 @@ class Calendar extends React.Component {
           selectedDate={this.state.selectedDate}
           onDateChange={this.onDateChange}
         />
-        <MonthPanel weeks={weeks} selectedDate={this.state.selectedDate} />
+        <MonthPanel
+          weeks={weeks} 
+          selectedDate={this.state.selectedDate}
+          onDateChange={this.onDateChange}
+        />
       </div>
     );
   }

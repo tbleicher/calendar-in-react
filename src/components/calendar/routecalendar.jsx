@@ -27,7 +27,9 @@ class RouteCalendar extends React.Component {
       ? parseInt(props.match.params.month, 10) - 1
       : this.props.date.month();
 
-    const day = this.props.date.day();
+    const day = (props.match.params.day)
+      ? parseInt(props.match.params.day, 10)
+      : this.props.date.date();
 
     this.state = {
       selectedDate: moment({ year, month, day })
@@ -44,7 +46,7 @@ class RouteCalendar extends React.Component {
   }
 
   setStateCallback(newDate) {
-    const location = '/calendar/' + newDate.format('YYYY/M')
+    const location = '/calendar/' + newDate.format('YYYY/M/D')
 
     this.props.history.push(location);
     this.props.onDateChange(newDate);

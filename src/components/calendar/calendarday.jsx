@@ -4,14 +4,17 @@ import moment from 'moment';
 
 class CalendarDay extends React.Component {
   render() {
+    const key = this.props.date.format('M-D');
+    const onClick = () => this.props.onClick(this.props.date);
     const classNames = [];
 
     if (this.props.date.format('M-D-Y') === moment().format('M-D-Y')) {
       classNames.push('today');
     }
 
-    if (this.props.date.format('M-D-Y') === this.props.selected.format('M-D-Y')) {
-      console.log(`selected: ${this.props.selected.format('LL')}`)
+    if (
+      this.props.date.format('M-D-Y') === this.props.selected.format('M-D-Y')
+    ) {
       classNames.push('selected');
     }
 
@@ -24,22 +27,26 @@ class CalendarDay extends React.Component {
     }
 
     return classNames.length ? (
-      <div key={this.props.date.format('M-D')} className={classNames.join(' ')}>
+      <div key={key} className={classNames.join(' ')} onClick={onClick}>
         {this.props.date.format('D')}
       </div>
     ) : (
-      <div key={this.props.date.format('M-D')}>{this.props.date.format('D')}</div>
+      <div key={key} onClick={onClick}>
+        {this.props.date.format('D')}
+      </div>
     );
   }
 }
 
 CalendarDay.defaultProps = {
   selected: moment(),
-}
+  onClick: () => {}
+};
 
 CalendarDay.propTypes = {
-  date: PropTypes.object, 
+  date: PropTypes.object.isRequired,
   selected: PropTypes.object,
-}
+  onClick: PropTypes.func
+};
 
 export default CalendarDay;

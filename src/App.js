@@ -39,7 +39,7 @@ class App extends Component {
           {/* this explicit declaration of Route allows us to define
               properties for the component rendered in the Route */ }
           <Route
-            path="/calendar/:year?/:month?" 
+            path="/calendar/:year?/:month?/:day?" 
             render={(routeProps) => (
               <Calendar {...routeProps} { ...calendarProps } />
             )}
