@@ -2,30 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-function renderDay(day, selected) {
-  const classNames = [];
-
-  if (day.format('M-D-Y') === moment().format('M-D-Y')) {
-    classNames.push('today');
-  }
-  if (day.day() === 0) {
-    classNames.push('holiday');
-  }
-  if (day.format('M') !== moment(selected).format('M')) {
-    classNames.push('fade');
-  }
-
-  return classNames.length ? (
-    <div key={day.format('M-D')} className={classNames.join(' ')}>
-      {day.format('D')}
-    </div>
-  ) : (
-    <div key={day.format('M-D')}>{day.format('D')}</div>
-  );
-}
+import CalendarDay from './calendarday';
 
 function renderWeek(week, selected) {
-  const days = week.map(day => renderDay(day, selected));
+  const days = week.map(date => 
+    <CalendarDay 
+      key={date.dayOfYear()} 
+      date={date} 
+      selected={selected} 
+    />
+  );
 
   return (
     <div key={week[0]} className="week">
