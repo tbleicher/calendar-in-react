@@ -8,7 +8,7 @@ import ArrowButton from './arrowbutton';
 import 'react-select/dist/react-select.css';
 
 function getMonthOptions(date) {
-  //TODO: create list based on locale
+  //TODO: create list based on locale month names
   return [
     { value: 0, label: 'January' },
     { value: 1, label: 'February' },
@@ -25,17 +25,12 @@ function getMonthOptions(date) {
   ];
 }
 
+// create dynamic list for year selection with current year +/- 10
 function getYearOptions(date) {
-  //TODO: create list dynamically based on date
-  return [
-    { value: 2014, label: '2014' },
-    { value: 2015, label: '2015' },
-    { value: 2016, label: '2016' },
-    { value: 2017, label: '2017' },
-    { value: 2018, label: '2018' },
-    { value: 2019, label: '2019' },
-    { value: 2020, label: '2020' }
-  ];
+  const start = date.year() - 10;
+  return Array(21)
+    .fill(1)
+    .map( (e, i) => ({value: start+i, label: `${start+i}`}) )
 }
 
 class SelectHeader extends React.Component {
